@@ -1,0 +1,31 @@
+{% extends "layout/base.html" %}
+{% block title %} CREATE POST {% endblock %}
+{% block content %}
+{{ super() }}
+<div class="container mt-4">
+    <h2>Create a New Post</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('create_post') }}" method="POST">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input class="form-control" type="text" name="title" id="title" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea class="form-control" name="content" id="content" rows="5" required></textarea>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-success" type="submit" value="Create Post">
+        </div>
+    </form>
+    <a class="btn btn-primary mt-3" href="{{ url_for('home') }}">Back</a>
+</div>
+{% endblock %}
